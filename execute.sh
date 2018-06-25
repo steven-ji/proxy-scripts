@@ -20,20 +20,20 @@ if [ -z "$validTime" ]; then
   exit 1
 fi
 ssh root@${ip} -p ${port} "mkdir -p {/opt/scripts,/opt/beats,/opt/app/proxy/agent/1.0.0/bin}"
-echo "###目录/opt/scripts,/opt/app/proxy/agent/1.0.0/bin创建完成!###"
-scp -P ${port} -r /opt/scripts root@${ip}:/opt
+echo "###create directory :{/opt/scripts,/opt/app/proxy/agent/1.0.0/bin} success!###"
+scp -P ${port} -p /opt/scripts/{agent_env.sh,beats_install.sh,deploy_backup.sh,execute.sh,filebeat.service,filebeat.yml,jar_restart.sh,metricbeat.service,metricbeat.yml} root@${ip}:/opt/scripts
 scp -P ${port} /opt/app/proxy/agent/1.0.0/bin/proxy.sh root@${ip}:/opt/app/proxy/agent/1.0.0/bin/
-echo "###脚本上传完成!###"
+echo "###upload scripts success!###"
 scp -P ${port} -r /opt/beats root@${ip}:/opt/
 ssh root@${ip} -p ${port} "sh /opt/scripts/beats_install.sh ${ip}:${port} ${hostname}"
-echo "###beats安装完成!###"
+echo "###beats install success!###"
 ssh root@${ip} -p ${port} "sh /opt/scripts/agent_env.sh ${ip}:${port} ${hostname}"
-echo "###agent环境变量设置完成!###"
+echo "###agent environment set success!###"
 ssh root@${ip} -p ${port} "sh /opt/scripts/deploy_backup.sh bsd-proxy-agent-1.0.0.jar"
 scp -P ${port} /root/.jenkins/workspace/bsd-proxy-agent/target/bsd-proxy-agent-1.0.0.jar root@${ip}:/opt/app/proxy/agent/1.0.0/
 ssh root@${ip} -p ${port} "sh /opt/scripts/jar_restart.sh bsd-proxy-agent ${validTime}"
-echo "###agent启动完成!###"
-echo "##########${ip}:${port}机器设置完成!#########"
+echo "###agent start success!###"
+echo "##########${ip}:${port} machine set success!#########"
 
 
 
