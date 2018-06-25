@@ -1,0 +1,13 @@
+filebeat:
+  prospectors:
+    - type: log
+      paths:
+        - /var/log/squid/access.log # 定义日志文件的路径，可以使用 Shell GLOB 匹配
+      close_removed: true
+      close_renamed: true
+      close_inactive: 1h
+output:
+  logstash: # output 处配置输出到 logstash，其实也可以直接输出到 ES，但不能对日志进行额外处理
+    hosts: ["log.xiaoxiangyoupin.com:50440"]
+    compression_level: 3
+tags: ["squid-access_log"]

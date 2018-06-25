@@ -1,0 +1,25 @@
+metricbeat.modules:
+- module: system
+  metricsets:
+    - cpu
+    - load
+    - filesystem
+    - fsstat
+    - process
+    - process_summary
+    - memory
+    - network
+    - uptime 
+    - socket
+    - core
+  enabled: true
+  period: 10s
+  processes: ['.*']
+  cpu.metrics: ["percentages"]
+  core.metrics: ["percentages"]
+tags: ["proxy-agent-metric"]
+#setup.dashboards.enabled: true
+#setup.kibana.host: "http://118.31.104.230:56010"
+output.logstash: # output 处配置输出到 logstash，其实也可以直接输出到 ES，但不能对日志进行额外处理
+  hosts: ["log.xiaoxiangyoupin.com:50440"]
+  compression_level: 3
