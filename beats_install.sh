@@ -33,6 +33,4 @@ echo "hostname: $hostname" >> /etc/filebeat/filebeat.yml
 echo "name: $ip" >> /etc/metricbeat/metricbeat.yml
 echo "hostname: $hostname" >> /etc/metricbeat/metricbeat.yml
 # 启动
-systemctl daemon-reload
-systemctl enable filebeat metricbeat
-systemctl start filebeat metricbeat
+systemctl daemon-reload && systemctl enable filebeat metricbeat && systemctl start filebeat metricbeat

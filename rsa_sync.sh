@@ -20,4 +20,6 @@ ssh root@${ip} -p ${port} "mkdir -p {/opt/scripts,/opt/beats,/opt/app/proxy/agen
 scp -P ${port} -C -r /opt/beats root@${ip}:/opt/
 # copy proxy.sh file
 scp -P ${port} -C -p /opt/app/proxy/agent/1.0.0/bin/proxy.sh root@${ip}:/opt/app/proxy/agent/1.0.0/bin/proxy.sh
+# copy scripts file
+scp -P ${port} -C -r /opt/scripts root@${ip}:/opt
 
